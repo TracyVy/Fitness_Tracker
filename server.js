@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,8 +13,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness_db", {
   useCreateIndex: true,
 });
 
-// const shoeRoutes = require("./routes/shoe-routes");
-// const userRoutes = require("./routes/user-routes");
-// app.use(shoeRoutes, userRoutes);
+const apiRoutes = require("./routes/api-routes.js");
+app.use(apiRoutes);
 
 app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
