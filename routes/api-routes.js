@@ -1,23 +1,21 @@
-const express = require("express");
-const r = express.Router();
-const workoutSchema = require("../models/workout");
+const r = require("express").Router();
+const {
+  getWorkouts,
+  addWorkout,
+  editWorkout,
+  rangeWorkout,
+} = require("../controllers/workout-controllers");
 
-r.get("/api/workouts", (req, res) => {
-  // let workout = {};
-  // res.send(workout);
-  res.send("Successful GET!!");
-});
+r.get("/api/workouts/", getWorkouts);
+r.post("/api/workouts", addWorkout);
+r.put("/api/workouts", editWorkout);
 
-r.post("/api/workouts", (req, res) => {
-  res.send("Successful POST!!");
-});
-
-r.put("/api/workouts", (req, res) => {
-  res.send("Successful PUT!!");
-});
-
-r.get("/api/workouts/range", (req, res) => {
-  res.send("Successful GET RANGE!!");
-});
+r.get("/api/workouts/range", rangeWorkout);
 
 module.exports = r;
+
+// 1. Add exercises to a previous workout plan. Add another exercise obj to an existing exercise array
+// 2. Edit a workout based on _id
+// 3A. Aggregate/sum of weight combined for that exercise.
+// 3B. View multiple the combined weight of multiple exercises on the stats page.
+// MongDB Atlas (research)
