@@ -2,7 +2,8 @@ const Workout = require("../models/workout-model");
 
 module.exports = {
   // track daily workout
-  getWorkouts: (req, res) =>
+  getWorkouts: (req, res) => {
+    console.log("getWorkouts");
     !req.query.id
       ? Workout.find({})
           .populate("name", "set")
@@ -10,11 +11,13 @@ module.exports = {
           .catch((err) => res.send(err))
       : Workout.findById(req.query.id)
           .then((foundWorkout) => res.send(foundWorkout))
-          .catch((err) => res.send(err)),
+          .catch((err) => res.send(err));
+  },
 
   // create daily workout
   addWorkout: async (req, res) => {
-    Workout.create(req.body);
+    console.log("addWorkout", req.body);
+    const workout = new Workout(req.body);
     try {
       await workout.save();
       res.send(workout);
@@ -24,15 +27,20 @@ module.exports = {
   },
 
   // edit Workout
-  editWorkout: (req, res) =>
-    Workout.findByIdAndUpdate(req.query.id, req.body)
-      .then(() => res.send({ msg: "Successful editWorkout" }))
-      .catch((err) => res.send(err)),
+  editWorkout: async (req, res) => {
+    console.log("editWorkout", req.params.id, req.body);
+    const workoutJson = { exercises: [req.body] };
+    console.log(JSON.stringify(workoutJson));
+    //const workoutJson = req.body;
+    //const workout = await Workout.findById(req.params.id);
+    Workout.findByIdAndUpdate(req.params.id, workoutJson)
+      .then(async () => {
+        const workout = await Workout.findById(req.params.id);
+        res.send(workout);
+      })
+      .catch((err) => res.send(err));
+  },
 
   // get workout Range
   rangeWorkout: (req, res) => res.send({ msg: "Successful rangeWorkout" }),
-
-  // log multiple exercise in a workout on a given day
-  // Schema should include: name, type, weight, sets, reps and duration of exercise.
-  // If the exercise is a cardio exercise, I should be able to track my distance traveled.
 };

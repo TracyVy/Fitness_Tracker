@@ -8,7 +8,7 @@ const {
 
 r.get("/api/workouts/", getWorkouts);
 r.post("/api/workouts", addWorkout);
-r.put("/api/workouts", editWorkout);
+r.put("/api/workouts/:id", editWorkout);
 
 r.get("/api/workouts/range", rangeWorkout);
 
