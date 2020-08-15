@@ -29,10 +29,16 @@ module.exports = {
   // edit Workout
   editWorkout: async (req, res) => {
     console.log("editWorkout", req.params.id, req.body);
-    const workoutJson = { exercises: [req.body] };
-    console.log(JSON.stringify(workoutJson));
-    //const workoutJson = req.body;
-    //const workout = await Workout.findById(req.params.id);
+    //const workoutJson = { exercises: [req.body] };
+    //console.log(JSON.stringify(workoutJson));
+
+    let workout = await Workout.findById(req.params.id);
+    console.log("currentWorkout", workout);
+    console.log("current exercises", workout["exercises"]);
+    let workoutJson = workout["exercises"];
+    workoutJson.push(req.body);
+    console.log("new exercises", workoutJson);
+
     Workout.findByIdAndUpdate(req.params.id, workoutJson)
       .then(async () => {
         const workout = await Workout.findById(req.params.id);
