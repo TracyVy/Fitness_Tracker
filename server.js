@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+
+require("dotenv").config();
+
 const PORT = process.env.PORT || 5500;
 
 app.use(express.json());
@@ -8,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./public"));
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri || "mongodb://localhost/workout", {
+mongoose.connect(uri, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useFindAndModify: false,
@@ -23,3 +26,6 @@ const apiRoutes = require("./routes/api-routes.js");
 app.use(apiRoutes);
 
 app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
+
+// Add the next line as the second argument for line 14.
+// || "mongodb://localhost/workout"

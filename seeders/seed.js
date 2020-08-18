@@ -4,10 +4,13 @@ let db = require("../models");
 console.log(db);
 console.log(db.workout);
 // HINT: Start a workout obj
-mongoose.connect("mongodb://localhost/workout", {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-});
+mongoose.connect(
+  "mongodb+srv://tracy:passwordMongo@clusterucb.vnl55.mongodb.net/fitness_db?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+  }
+);
 
 let workoutSeed = [
   {
