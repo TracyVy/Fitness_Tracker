@@ -50,5 +50,8 @@ module.exports = {
   },
 
   // get workout Range
-  rangeWorkout: (req, res) => res.send({ msg: "Successful rangeWorkout" }),
+  rangeWorkout: async (req, res) => {
+    const workouts = await Workout.find();
+    res.send(workouts);
+  },
 };
