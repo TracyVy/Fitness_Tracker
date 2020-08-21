@@ -39,7 +39,9 @@ module.exports = {
     workoutJson.push(req.body);
     console.log("new exercises", workoutJson);
 
-    Workout.findByIdAndUpdate(req.params.id, workoutJson)
+    Workout.findByIdAndUpdate(req.params.id, {
+      $set: { exercises: workoutJson },
+    })
       .then(async () => {
         const workout = await Workout.findById(req.params.id);
         res.send(workout);

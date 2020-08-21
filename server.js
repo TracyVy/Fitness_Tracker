@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5500;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("./public"));
+app.use(express.static("./public", { extensions: ["html"] }));
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
