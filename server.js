@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./public", { extensions: ["html"] }));
 
-const uri = process.env.ATLAS_URI;
+const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
